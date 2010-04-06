@@ -1,0 +1,6 @@
+Change History
+**************
+
+0.5.0 (2010-04-06)
+==================
+- Initial release, enabling it's use with zc.buildout.
