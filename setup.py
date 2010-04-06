@@ -1,21 +1,33 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+
+import sys, os, imp
 from setuptools import setup, find_packages
-import sys, os
+from pkg_resources import resource_string
 
-version = '1.0'
+VERSION = '0.5'
 
-setup(name='buildout.ucsdetector',
-      version=version,
-      description="A buildout extensions that enable set diferent dependency links to install eggs.",
-      long_description="""\
-""",
+MODULE_NAME='buildout.ucsdetector'
+README = resource_string(MODULE_NAME, 'README.txt')
+parent_directory = os.path.dirname(__file__)
+CHANGES = open(os.path.join(parent_directory, "CHANGES.txt")).read()
+
+
+setup(name=MODULE_NAME,
+      version=VERSION,
+      description="A buildout extension that enables dependency links\
+      to install eggs according to the UCS(Unicode Character Set)\
+      version of the python distribution.",
+      long_description=README,
       classifiers=[
-          "Framework :: Buildout ",
-          "Intended Audience :: Developers ",
-          "Topic :: Software Development :: Build Tools ",
+          "Framework :: Buildout",
+          "Intended Audience :: Developers",
+          "Topic :: Software Development :: Build Tools",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
       keywords='buildout ucs extension',
-      author='Diego Manh\xc3\xa3es Pinheiro',
+      author='Diego Manhães Pinheiro',
       author_email='dmpinheiro@gmail.com',
       url='http://github.com/dmpinheiro/buildout.ucsdetector',
       license='MIT',
@@ -27,12 +39,9 @@ setup(name='buildout.ucsdetector',
           # -*- Extra requirements: -*-
           'zc.buildout',
       ],
-      tests_require=[
-          'zc.buildout',
-      ],
-      test_suite = "buildout.ucsdetector.tests",
-      entry_points={
-          'zc.buildout.extension': ['ext = buildout.ucsdetector:ext'],
-          'zc.buildout.unloadextension': ['ext = buildout.ucsdetector:unload']
-          }
+      test_suite = MODULE_NAME+".tests.test_suite",
+      entry_points="""
+          [zc.buildout.extension]
+          default=buildout.ucsdetector:detect
+          """
       )
